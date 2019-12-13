@@ -1,8 +1,13 @@
-const Employee = require("./lib/Employee");
-const Manager = require("./lib/Manager");
-const Engineer = require("./lib/Engineer");
-const Intern = require("./lib/Intern");
+// const Employee = require("./lib/Employee");
+// const Manager = require("./lib/Manager");
+// const Engineer = require("./lib/Engineer");
+// const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
+const fs = require("fs");
+const mCardGen = require("./templates/manager-card");
+const eCardGen = require("./templates/engineer-card");
+const iCardGen = require("./templates/intern-card");
+
 const questionsM = [{
     message: "what is your name?",
     name: "name"
@@ -65,18 +70,39 @@ if(res.role === "intern"){
 function makeManager(){
 inquirer.prompt(questionsM)
 .then(function(resM){
-    console.log(resM);
+
+const managerCard = mCardGen.managerCardGen(resM);
+fs.appendFile("output/team.html",managerCard,function(err) {
+
+    if (err) {
+      return console.log(err);
+    }
+    });
+
 })
 }
 function makeEngineer(){
     inquirer.prompt(questionsE)
     .then(function(resE){
-        console.log(resE);
+        const engineerCard = eCardGen.engineerCardGen(resE);
+fs.appendFile("output/team.html",engineerCard,function(err) {
+
+    if (err) {
+      return console.log(err);
+    }
+    });
+    
     })
 }
 function makeIntern(){
     inquirer.prompt(questionsI)
     .then(function(resI){
-        console.log(resI);
+        const internCard = iCardGen.internCardGen(resI);
+        fs.appendFile("output/team.html",internCard,function(err) {
+        
+            if (err) {
+              return console.log(err);
+            }
+            });
     })
 }
