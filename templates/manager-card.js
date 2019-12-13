@@ -13,5 +13,6 @@ exports.managerCardGen =function(resM) {
         <br>
         <p>office Number: ${resM.officeNumber}</p>
         </div>
-        </div>`
+        </div>
+        `
 }

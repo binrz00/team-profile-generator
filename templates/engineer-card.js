@@ -11,7 +11,8 @@ exports.engineerCardGen =function(resE) {
         <br>
         <p>Email: ${resE.email}</p>
         <br>
-        <p>My Github username: ${resE.github}</p>
+        <p>My Github profile: <a href="https://github.com/${resE.github}">${resE.github}</a></p>
         </div>
-        </div>`
+        </div>
+        `
 }

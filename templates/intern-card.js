@@ -13,5 +13,6 @@ exports.internCardGen =function(resI) {
         <br>
         <p>My School: ${resI.school}</p>
         </div>
-        </div>`
+        </div>
+        `
 }
