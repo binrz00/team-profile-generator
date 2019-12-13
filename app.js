@@ -7,7 +7,16 @@ const fs = require("fs");
 const mCardGen = require("./templates/manager-card");
 const eCardGen = require("./templates/engineer-card");
 const iCardGen = require("./templates/intern-card");
-
+fs.readFile("templates/main.html","utf8",function(error,data){
+    if(error){
+        console.log(error)
+    }
+fs.writeFile("output/team.html",data,function(err){
+    if(err){
+     return   console.log(err)
+    }
+})
+})
 const questionsM = [{
     message: "what is your name?",
     name: "name"
@@ -47,6 +56,8 @@ const questionsI = [{
     message: "what school did you attend?",
     name: "school"
 }]
+
+addMember = function(){
 inquirer.prompt(
     [{
     message: "what is your role?",
@@ -66,7 +77,8 @@ if(res.role === "intern"){
  makeIntern();
 }
 })
-
+}
+addMember();
 function makeManager(){
 inquirer.prompt(questionsM)
 .then(function(resM){
@@ -78,7 +90,13 @@ fs.appendFile("output/team.html",managerCard,function(err) {
       return console.log(err);
     }
     });
-
+    inquirer.prompt({message:"do you have another team member to add?",type: "confirm",name:"more"})
+.then(function(res){
+if (res.more===true){
+    addMember();
+}
+else {return}
+})
 })
 }
 function makeEngineer(){
@@ -91,8 +109,14 @@ fs.appendFile("output/team.html",engineerCard,function(err) {
       return console.log(err);
     }
     });
-    
+    inquirer.prompt({message:"do you have another team member to add?",type: "confirm",name:"more"})
+    .then(function(res){
+    if (res.more===true){
+        addMember();
+    }
+    else {return}
     })
+})
 }
 function makeIntern(){
     inquirer.prompt(questionsI)
@@ -104,5 +128,13 @@ function makeIntern(){
               return console.log(err);
             }
             });
+            inquirer.prompt({message:"do you have another team member to add?",type: "confirm",name:"more"})
+            .then(function(res){
+            if (res.more===true){
+                addMember();
+            }
+            else {return}
     })
+})
 }
+
